@@ -1,0 +1,49 @@
+
+{% extends 'secretaria/layout.html' %}
+
+{% load static %}
+
+{% block title %}SdA: Cambiar contraseña {% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col text-center">
+            <h1 class="mt-3">Sistema de Alumnos</h1>
+            <h3 class="mt-3 mb-3">Listados por condición</h3>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="form-group text-center">
+                <select name="condicion" id="condicion" class="form-control">
+                    <option disabled selected value> Seleccione la condición </option>
+                    <option value="Regular">Regulares</option>
+                    <option value="Egresado/a">Egresados/as</option>
+                    <option value="Salido con pase">Salidos/as con pase</option>
+                    <option value="Salido sin pase">Salidos/as sin pase</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- Listados -->
+    <table class="table table-hover">
+        <thead id="table-head">
+
+          </thead>
+          <tbody id="listado">
+            
+          </tbody>
+    </table>
+    <!-- End Listados-->
+
+    <!-- Hidden Form -->
+    <div id="hidden-form"></div>
+    <!-- End Hidden Form-->
+
+</div>
+
+<script src="{% static 'secretaria/listados.js' %}"></script>
+
+{% endblock %}

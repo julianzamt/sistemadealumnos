@@ -1,0 +1,22 @@
+{% extends 'secretaria/layout.html' %}
+
+{% load static %}
+
+{% block title %}SdA: Página no encontrada {% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col text-center m-3"><h1>Ups!</h1></div>
+</div>
+<div class="row justify-content-center">
+    <div class="col-md-4 m-3">
+        <p>La página que solicitaste no existe.</p>
+        <a href="{% url 'index' %}" class="btn btn-primary shadow">Volver a búsqueda de estudiante</a>
+    </div>
+    <div class="col-md-4 text-center">
+        <img src="{% static 'secretaria/images/bojack.jpg' %}" alt="Bojack triste (Error)">
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "secretaria/layout.html" %}
+{% load static %}
+
+{% block title %}Sistema de Alumnos{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col">
+        {% if message %}
+            <div class="alert-success text-center p-1 rounded" role="alert">{{ message }}</div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row justify-content-center align-content-center" id="search-height">
+    <div class="col-md-8">
+        <div class="col text-center">
+            <h1 class="m-3">Sistema de Alumnos</h1>
+        </div>
+        <div class="col">
+            <div class="form-group text-center">
+                <p>Buscar estudiante por nombre, apellido y/o DNI</p>
+                <form action="{% url 'search' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="text" class="form-control mb-2" name="name" id="nombre" placeholder="Nombre" autofocus>
+                    <input type="text" class="form-control mb-2" name="last" id="apellido" placeholder="Apellido">
+                    <input type="text" class="form-control" name="dni" id="dni" placeholder="DNI (sin puntos)" maxlength="8">
+                    <input type="submit" class="btn btn-primary mt-3" value="Buscar">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

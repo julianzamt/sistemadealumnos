@@ -1,0 +1,140 @@
+{% extends 'secretaria/layout.html' %}
+{% load static %}
+
+{% block title %}SdA: Estudiante {% endblock %}
+
+{% block body %}
+{% if message %}
+    <div class="alert-success text-center p-1 rounded" role="alert">{{ message }}</div>
+{% endif %}
+<div class="row justify-content-center">
+    <div class="col-8 text-center">
+        
+        <h1 class="m-3" id="student-header">{{ student.name }} {{ student.last }} 
+            {% if student.condicion == "Egresado/a" %} <span class="small text-secondary">(Egresadx)</span>
+            {% elif student.condicion == "Salido con pase" %} <span class="small text-secondary">(Salidx con pase)</span>
+            {% elif student.condicion == "Salido sin pase" %} <span class="small text-secondary">(Salidx sin pase)</span>
+            {% endif%}
+        </h1> <hr>
+        <input id="student-id" type="hidden" value="{{ student.pk }}">
+        <input type="hidden" id="es_egresado" value="{{ student.es_egresado }}">
+        <p class="mb-2">Apellido: <span id="last" class="text-capitalize">{{ student.last }}</span></p><hr>
+        <p>Nombre: <span id="name" class="text-capitalize">{{ student.name }}</span></p><hr>
+        <p>DNI: <span id="dni">{{ student.dni }}</span></p><hr>
+        <p>Año de ingreso: <span id="ingreso">{{ student.ingreso }}</span></p><hr>
+        {% if student.doc_ingreso == '' %}
+            <p>Documento de Ingreso: <button class="btn btn-sm btn-warning py-0" style="font-size: 0.8em;" id="doc_ingreso" disabled>No cargada aún</button></p><hr>
+        {% else %}
+            <p>Documento de Ingreso: <span id="doc_ingreso">{{ student.doc_ingreso }}</span></p><hr>
+        {% endif %}
+        {% if student.disposicion == None %}
+            <p>Disposición Interna: <button class="btn btn-sm btn-warning py-0" style="font-size: 0.8em;" id="disposicion" disabled>No cargada aún</button></p><hr>
+        {% else %}
+            <p>Disposición Interna: <span id="disposicion">{{ student.disposicion }}</span></p><hr>
+        {% endif %}
+        {% if student.calif_anual == None %}
+            <p>Calificador Anual: <button class="btn btn-sm btn-warning py-0" style="font-size: 0.8em;" id="calif_anual" disabled>No cargado aún</button></p><hr>
+        {% else %}
+            <p>Calificador Anual: <a id="calif_anual" class="btn btn-sm btn-info" href="{{ student.calif_anual }}" target="_blank">Ver</a></p><hr>
+        {% endif %}
+        {% if student.trayectoria == None %}
+            <p>Calificador Personal: <button class="btn btn-sm btn-warning py-0" style="font-size: 0.8em;" id="trayectoria" disabled>No cargado aún</button></p><hr>
+        {% else %}
+            <p>Calificador Personal: <a class="btn btn-sm btn-info" href="{{ student.trayectoria }}" id="trayectoria" target="_blank">Ver</a></p><hr>
+        {% endif %}
+        <!-- Egresados -->
+        {% if student.condicion == "Egresado/a" %}
+        <hr><div class="titulo-gestion"><h3>Gestión del título </h3><span class="small sub-gestion">(Para editar: Gestionar salida)</span></div><hr>
+            {% if student.egreso == '' %}
+                <p>Año de egreso: <button class="btn btn-sm btn-warning py-0" style="font-size: 0.8em;" disabled>No cargado aún</button></p><hr>
+            {% else %}
+                <p>Año de egreso: {{ student.egreso }}</p><hr>
+            {% endif %}
+            {% if student.titulo_confeccionado == True %}
+                <p>Título confeccionado: <span class="si">Sí</span> | Fecha: 
+                    {% if student.fecha_titulo_confeccionado == '' %}
+                    <button class="btn btn-sm btn-warning py-0" style="font-size: 0.8em;" disabled>No cargada aún</button><hr>
+                    {% else %}
+                    {{ student.fecha_titulo_confeccionado }}</p><hr>
+                    {% endif %}
+            {% else %}
+                <p>Título confeccionado: <span class="no">No</span> </p><hr>
+            {% endif %}
+            {% if student.titulo_legalizado == True %}
+                <p>Título legalizado: <span class="si">Sí</span> | Fecha: 
+                    {% if student.fecha_titulo_legalizado == '' %}
+                    <button class="btn btn-sm btn-warning py-0" style="font-size: 0.8em;" disabled>No cargada aún</button>
+                    {% else %}
+                    {{ student.fecha_titulo_legalizado }}</p><hr>
+                    {% endif %}
+            {% else %}
+                <p>Título legalizado: <span class="no">No</span> </p><hr>
+            {% endif %}
+            {% if student.titulo_retirado == True %}
+                <p>Título retirado: <span class="si">Sí</span> | Fecha: 
+                    {% if student.fecha_titulo_retirado == '' %}
+                        <button class="btn btn-sm btn-warning py-0" style="font-size: 0.8em;" disabled>No cargada aún</button>
+                    {% else %}
+                        {{ student.fecha_titulo_retirado }}</p><hr>
+                    {% endif %}
+            {% else %}
+                <p>Título retirado: <span class="no">No</span> </p><hr>
+            {% endif %}
+            
+            <p>Libro Matriz: Libro 
+                {% if student.libro == '' %}
+                <button class="btn btn-sm btn-warning py-0" style="font-size: 0.8em;" disabled>No cargado aún</button>
+                {% else %}
+                <span> {{ student.libro }}</span> 
+                {% endif %}
+                | Folio 
+                {% if student.folio == '' %}
+                <button class="btn btn-sm btn-warning py-0" style="font-size: 0.8em;" disabled>No cargado aún</button></p><hr>
+                {% else %}
+                <span id="folio">{{ student.folio }}</span></p><hr>
+                {% endif %}
+        {% endif %}
+        <!-- Salidos con pase -->
+        {% if student.condicion == 'Salido con pase' %}
+            <hr><div class="titulo-gestion"><h3>Gestión del pase</h3><span class="small sub-gestion">(Para editar: Gestionar salida)</span></div><hr>
+            {% if student.pase_confeccionado == True %}
+                <p>Pase confeccionado: <span class="si">Sí</span> | Fecha: 
+                    {% if student.fecha_pase_confeccionado == '' %}
+                    <button class="btn btn-sm btn-warning py-0" style="font-size: 0.8em;" disabled>No cargada aún</button><hr>
+                    {% else %}
+                    {{ student.fecha_pase_confeccionado }}</p><hr>
+                    {% endif %}
+            {% else %}
+                <p>Pase confeccionado: <span class="no">No</span> </p><hr>
+            {% endif %}
+            {% if student.pase_legalizado == True %}
+                <p>Pase legalizado: <span class="si">Sí</span> | Fecha: 
+                    {% if student.student.fecha_pase_legalizado == '' %}
+                    <button class="btn btn-sm btn-warning py-0" style="font-size: 0.8em;" disabled>No cargada aún</button><hr>
+                    {% else %}
+                    {{ student.fecha_pase_legalizado }}</p><hr>
+                    {% endif %}
+            {% else %}
+                <p>Pase legalizado: <span class="no">No</span></p><hr>
+            {% endif %}
+
+        {% endif %}
+
+    </div>
+</div>
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        {% if request.user.user_type == "Secretaria/o" %}
+        <a href="{% url 'salida' student.pk %}" class="btn btn-outline-danger float-right ml-3 mb-3 mr-3">Gestionar salida</a>
+        <button class="btn btn-secondary float-right" id="edit">Editar</button>
+        {% else %}
+        <button class="btn btn-outline-danger float-right ml-3 mb-3 mr-3" id="baja" disabled>Gestionar salida</button>
+        <button class="btn btn-secondary float-right" id="edit" disabled>Editar</button>
+        {% endif %}
+        
+    </div>
+</div>
+    
+<script src="{% static 'secretaria/student.js' %}"></script>
+
+{% endblock %}

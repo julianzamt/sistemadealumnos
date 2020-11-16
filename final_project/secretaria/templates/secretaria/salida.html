@@ -1,0 +1,108 @@
+{% extends 'secretaria/layout.html' %}
+{% load static %}
+
+{% block title %}SdA: Gestionar salida {% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col text-center mt-3 mb-3">
+            <h1>Gestión de Salida</h1>
+            <h3 class="text-center text-capitalize text-muted">{{ student.last }}, {{ student.name }}</h3>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-10 text-center">
+            <!-- Form Start-->   
+            <form action="{% url 'salida' student.pk %}" method="POST">
+            
+                <div class="form-group">
+                {% csrf_token %}
+                <div class="field-wrapper">
+                {{ form.condicion.label_tag}}
+                {{ form.condicion }}
+                </div>
+
+                <!-- Egresado View -->
+                {% if student.condicion == "Egresado/a" %}
+                <div id="egresado-view" style="display: block;">
+                {% else %}
+                <div id="egresado-view" style="display: none;">
+                {% endif %}
+                    <h3 class="mt-4">Gestión del egreso</h3>
+                    <div class="field-wrapper justify-content-center form-inline">
+                        <div class="m-3">{{ form.egreso.label_tag }}</div>
+                        {{ form.egreso}}
+                    </div>
+                    <h3>Título</h3>
+                    <div class="field-wrapper justify-content-center form-inline">
+                        <span class="mr-2">{{ form.titulo_confeccionado.label_tag }}</span>
+                        <span class="mr-2">{{ form.titulo_confeccionado }}</span>
+                        <span class="mr-2">{{ form.fecha_titulo_confeccionado.label_tag }}</span>
+                        {{ form.fecha_titulo_confeccionado }}      
+                    </div>
+                    <div class="field-wrapper justify-content-center form-inline">
+                        <span class="mr-2">{{ form.titulo_legalizado.label_tag }}</span>
+                        <span class="mr-2">{{ form.titulo_legalizado }}</span>
+                        <span class="mr-2">{{ form.fecha_titulo_legalizado.label_tag }}</span>
+                        {{ form.fecha_titulo_legalizado }}
+                    </div>
+                    <div class="field-wrapper justify-content-center form-inline">
+                        <span class="mr-2">{{ form.titulo_retirado.label_tag }}</span>
+                        <span class="mr-2">{{ form.titulo_retirado }}</span>
+                        <span class="mr-2">{{ form.fecha_titulo_retirado.label_tag }}</span>
+                        {{ form.fecha_titulo_retirado}}
+                    </div>
+                    <div class="field-wrapper justify-content-center form-inline">
+                        <span class="mr-2">{{ form.libro.label_tag }}</span>
+                        {{ form.libro }}
+                    </div>
+                    <div class="field-wrapper justify-content-center form-inline">
+                        <span class="mr-2">{{ form.folio.label_tag }}</span>
+                        {{ form.folio }}
+                    </div>
+                </div>
+                <!-- End Egresado View -->
+
+                <!-- Start salido con pase View -->
+                {% if student.condicion == "Salido con pase" %}
+                <div id="salido-view" style="display: block;">
+                {% else %}
+                <div id="salido-view" style="display: none;">
+                {% endif %}
+                    <h3 class="mt-4">Gestión del pase</h3>
+                    <div class="field-wrapper justify-content-center form-inline">
+                        <span class="mr-2">{{ form.pase_confeccionado.label_tag }}</span>
+                        <span class="mr-2">{{ form.pase_confeccionado }}</span>
+                        <span class="mr-2">{{ form.fecha_pase_confeccionado.label_tag }}</span>
+                        {{ form.fecha_pase_confeccionado }}      
+                    </div>
+                    <div class="field-wrapper justify-content-center form-inline">
+                        <span class="mr-2">{{ form.pase_legalizado.label_tag }}</span>
+                        <span class="mr-2">{{ form.pase_legalizado }}</span>
+                        <span class="mr-2">{{ form.fecha_pase_legalizado.label_tag }}</span>
+                        {{ form.fecha_pase_legalizado }}
+                    </div>
+                </div>
+                <!-- End salido con pase View -->
+               
+                <!-- Start Regular View -->
+                <div id="regular-view" style="display: none;">
+                </div>
+                <!-- End Regular View-->
+
+                <!-- Start Salido sin pase View -->
+                <div id="salido-sin-pase-view" style="display: none;">
+                </div>
+                <!-- End salido sin pase View -->
+
+                <input id="save" type="submit" value="Guardar" class="btn btn-success shadow">
+            </form>
+            <!-- Form end -->
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'secretaria/salida.js' %}"
+
+{% endblock %}

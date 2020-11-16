@@ -1,0 +1,26 @@
+{% extends 'secretaria/layout.html' %}
+{% load static %}
+
+{% block title %}SdA: Ingresar {% endblock %}
+
+{% block body %}
+
+{% if message %}
+<div class="row">
+    <div class="col">
+        <div class="alert-danger text-center p-1 rounded" role="alert">{{ message }}</div>
+    </div>
+</div>
+{% endif%}
+
+<div class="row justify-content-center">
+    <div class="col-md-8 text-center">
+        <h2 class="m-3">Ingresar Estudiante</h2>
+        <form action="{% url 'new_student' %}" method="POST">
+            {% csrf_token %}
+            {{ form_ingreso.as_p }}
+            <input type="submit" class="btn btn-success mb-3" value="Guardar">
+        </form>
+    </div>
+</div>
+{% endblock %}

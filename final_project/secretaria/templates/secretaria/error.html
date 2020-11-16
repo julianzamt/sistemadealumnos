@@ -1,0 +1,22 @@
+{% extends 'secretaria/layout.html' %}
+{% load static %}
+
+{% block title %}SdA: No encontrado {% endblock %}
+
+{% block body %}
+<div class="row justify-content-center">
+    <div class="col-md-4 m-3">
+        <h1 class="mb-3 mt-3">{{ message }}</h1>
+        <p>Revisá:</p>
+        <ul>
+            <li>Errores de tipeo</li>
+            <li>Nombre y segundo nombre se consideran uno solo (por ejemplo, "Juan Pablo").
+                Probá buscar sólo con el apellido</li>
+            <li>Que el/la estudiante ya haya sido ingresado/a al sistema</li>
+        </ul>
+    </div>
+    <div class="col-md-4 text-center m-3">
+        <img src="{% static 'secretaria/images/bojack.jpg' %}" alt="Bojack triste (Error)" style="border-radius:350px/500px; border: 2px solid black">
+    </div>
+</div>
+{% endblock %}

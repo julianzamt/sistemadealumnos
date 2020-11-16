@@ -1,0 +1,35 @@
+{% extends 'secretaria/layout.html' %}
+{% load static %}
+
+{% block title %}SdA: Desambigüación {% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col text-center m-3"><h1>¿A quién te referís?</h1></div>
+</div>
+
+{% for student in students %}
+    <!-- Hidden Form (to achieve using the same view
+    to process the request as index.html -->
+    <form action="{% url 'search' %}" method="POST" id="{{ student.pk }}">
+        {% csrf_token %}
+        <input type="hidden" name="name" value="{{ student.name }}">
+        <input type="hidden" name="last" value="{{ student.last }}">
+        <input type="hidden" name="dni" value="{{ student.dni }}">
+    </form>
+
+    <div class="row justify-content-center">
+        <div class="col-md-4 text-center">
+            <a href="#" class="text-dark text-decoration-none" onclick="event.preventDefault(); document.getElementById('{{ student.pk }}').submit()">
+            <div class="card border rounded m-3 shadow" id="dis-card">
+                <h5 class="card-header text-capitalize" style="background-color: {% cycle 'linen' 'lavender' 'mistyrose' 'lightyellow' as back_colours %};">{{ student.name }} {{ student.last }}</h5>
+                <div class="card-body">
+                  <p class="card-text">DNI: {{ student.dni }}</p>
+                  <p class="card-text">Año de Ingreso: {{ student.ingreso }}</p>
+                </div>
+              </div>
+            </a>
+        </div>
+    </div>
+{% endfor %}
+{% endblock %}
