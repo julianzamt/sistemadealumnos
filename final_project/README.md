@@ -69,21 +69,4 @@ sqlparse==0.4.1
 
 ---
 
-#### Why I think this is a solid final project for CS50w:
-
-* Use of django: It includes a lot of extra features of the django framework, compared to those visited during the course. I accomplished this by mindfully reading its documentation.
-
-* Use of JS: I chose to use pure JS to have the chance to play with it before learning a JS Framework (which is my next step). I think I used it with judgement having in mind to improve the UX.
-
-* Deployment: I´ve learned how to connect Django with a postgres DB, in order to deploy the app with Heroku.
-
-* Real project for real use: I wanted to make something with real impact on my world. I´m an art teacher, so I did a little research on the schools I work for, asking for problems that could be resolved by programming. 
-I came upon with the secretary office mess, where the documentation of each student was held in many different books or, if digitalized, in many different virtual folders. I thought it was a nice opportunity to use everything I´ve been learning. 
-
-* Security: As this project is intended to be used in the real world, I carefully took advantage of the Django security system in order to ensure the integrity of sensible information.
-
----
-
-I want to say thanks to all of you at CS50x. I´ve learned a LOT.
-
 Julián Zamt, November 2020
